@@ -46,5 +46,5 @@ $GLOBALS['TL_LANG']['tl_module']['cl_layer_height']         = array('Layer-Höhe
 $GLOBALS['TL_LANG']['tl_module']['cl_set_cookie']         = array('ein Cookie setzen', 'um die mehrmalige Anzeige per Cookie zu beschränken');
 $GLOBALS['TL_LANG']['tl_module']['cl_cookie_name']         = array('Cookie-Name', 'wenn es leer bleibt wird ein Name generiert.');
 $GLOBALS['TL_LANG']['tl_module']['cl_cookie_dauer']         = array('Cookie-Dauer', 'in Millisekunden Standart 3600 = 1 Stunde.');
-
+$GLOBALS['TL_LANG']['tl_module']['cl_option_other']         = array('Optionen', '');
 ?>

@@ -36,7 +36,7 @@ array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array
 	),
 	'cl_content'=> array
 	(
-	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_option_other'],
+	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_content'],
 	    'exclude' => true,
 	    'inputType'  => 'textarea',
 	    'eval' => array('mandatory'=>false,'rte'=>false,'allowHtml'=>true,'tl_class'=>'clr'),

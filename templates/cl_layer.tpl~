@@ -1,6 +1,6 @@
 <div id="overLay"></div>
  <div id="layer">
-<!--     <div id="closelayer"></div> -->
+    <div id="closeBtn"></div>
     <?php echo $this->content; ?>
 </div><!--#layer-->
 

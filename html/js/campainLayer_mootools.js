@@ -14,7 +14,7 @@
 	    layerWidth: 500,
 	    layerHeight: 400,
 	    drawLayer: true, //false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert    
-	    closeID : 'closelayer',
+	    closeID : 'closeBtn',
 	    drawCloseBtn: true, //false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert        
 	    contentID : 'layercontent', 
 	    drawContent: true,

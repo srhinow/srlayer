@@ -182,7 +182,7 @@
 		    top: (this.parentsize.y - this.layerHeight) / 2,
 		    opacity: 1		    
 		});
-		console.log(this.layerID);
+// 		console.log(this.layerID);
 	    }
 
 	    
