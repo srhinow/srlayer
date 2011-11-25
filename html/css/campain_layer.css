@@ -13,21 +13,21 @@
 #layer{
     position:fixed;
     z-index: 9999;
-    height:500px;
-    width:830px;
+    height:460px;
+    width:790px;
     display:none;
-/*     background-color: #fff; */
+    background-color: #fff;
+    padding:20px;
 }
 
-#closelayer {
-	position:fixed;
-/*	right:10px;
-	top:10px;*/
+#closeBtn {
+	position:absolute;
+	right:10px;
+	top:10px;
 	width: 21px;
 	height:21px;
-	margin-left:850px;
-	margin-top:10px;
 	background: transparent url('../images/layer_CloseBtn.png') no-repeat center;
 	z-index: 10000;
+	text-indent:-9999px;
 	cursor: pointer;
 }

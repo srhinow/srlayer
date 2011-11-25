@@ -1,8 +1,8 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php if (!defined('TL_ROOT')) die('You cannot access this file directly!');
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2010 Leo Feyer
+ * Copyright (C) 2005-2011 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,23 +21,17 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  sr-tag.de 2011
+ * @copyright  sr-tag Webentwicklung 2011 
  * @author     Sven Rhinow 
- * @package    ClicknTalk
+ * @package    Language
  * @license    LGPL 
  * @filesource
  */
 
-/**
- * Add back end modules
- */
- 
-
 
 /**
- * Front end modules
+ * Miscellaneous
  */
- 
-$GLOBALS['FE_MOD']['kampagnen_layer'] = array('kampagnen_layer' => 'ModuleKampagnenLayer');
+$GLOBALS['TL_LANG']['MSC'][''] = '';
 
 ?>

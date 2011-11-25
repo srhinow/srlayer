@@ -8,25 +8,29 @@
 	options:{
 	    parentEl : $('top'),
 	    overLayID: 'overLay',    
-	    drawOverLay: true, // false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert
+	    drawOverLay: false, // false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert
 	    overLayOpacity: 0.7,
 	    layerID : 'layer',
 	    layerWidth: 500,
 	    layerHeight: 400,
-	    drawLayer: true, //false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert    
+	    drawLayer: false, //false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert 
+	    closePerLayerClick:true,
+	    closePerEsc:true,   
 	    closeID : 'closeBtn',
-	    drawCloseBtn: true, //false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert        
+	    closeClass: 'closer',
+	    drawCloseBtn: false, //false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert        
 	    contentID : 'layercontent', 
-	    drawContent: true,
+	    drawContent: false,
 	    mlIframe : 'mlIframe',
-	    drawMlIframe: true, //false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert        
+	    drawMlIframe: false, //false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert        
 	    mkLinkEvents: true, // wenn false wird kein Link mit dem Click-Event ausgestattet (z.B. beim sortigen anzeigen)
 	    closeTxt:'close',   
 	    duration : 100,
+            drawLayerCenterY:true,
+	    drawLayerCenterX:true,	    
 	    
 	    //    Höhe vom Headimage + Höhe der Hauptnavigation
 	    topheight : 0, //  differenz wenn der Layer obere Bereiche überdecken soll
-	    itemcount : 0,
 	    parentsize : '',
 	    initiframe : false,  //false = erstellt nur ein leeres div, true =  das iFrame wird direkt beim laden der Seite aufgerufen
 	    showNow: false  //der Layer wird direkt beim laden der Seite angezeigt
@@ -43,7 +47,10 @@
 	    this.layerWidth = this.options.layerWidth,
 	    this.layerHeight = this.options.layerHeight,
 	    this.drawLayer = this.options.drawLayer;
+	    this.closePerLayerClick = this.options.closePerLayerClick;
+	    this.closePerEsc = this.options.closePerEsc;
 	    this.closeID = this.options.closeID;
+	    this.closeClass = this.options.closeClass;
 	    this.drawCloseBtn = this.options.drawCloseBtn;
 	    this.contentID = this.options.contentID;
 	    this.drawContent = this.options.drawContent;	    
@@ -53,11 +60,12 @@
 	    this.closeTxt = this.options.closeTxt;
 	    this.duration = this.options.duration;
 	    this.topheight = this.options.topheight;
-	    this.itemcount = this.options.itemcount;
 	    this.parentsize = this.options.parentsize;	    
 	    this.initiframe = this.options.initiframe;
 	    this.showNow = this.options.showNow;
             this.overLayOpacity = this.options.overLayOpacity;
+	    this.drawLayerCenterY = this.options.drawLayerCenterY;
+	    this.drawLayerCenterX = this.options.drawLayerCenterX;               
             
             //auf Browser-Groessenveraenderung reagieren
 	    window.addEvent('resize', function(){		 		 
@@ -69,24 +77,25 @@
 		        width : this.parentsize.x,
 			height : this.parentsize.y
 			});
-		    $(this.layerID).setStyles({		
-			left: (this.parentsize.x - this.layerWidth) / 2, 
-			top: (this.parentsize.y - this.layerHeight) / 2
-			});		
+		    if(this.drawLayerCenterX) $(this.layerID).setStyles({ 'left': (this.parentsize.x - this.layerWidth) / 2 });
+		    if(this.drawLayerCenterY) $(this.layerID).setStyles({ 'top': (this.parentsize.y - this.layerHeight) / 2 });		
 		    
 	    }.bind(this));
-	    	
+	    // console.log(this.closePerEsc);	
+	    
 	    //key-events verarbeiten	
-	    document.addEvent('keydown', function(event){
-	        switch(event.code){
-				case 27:	// Esc
-				case 88:	// 'x'
-				case 67:	// 'c'
-				this.close();
-				break
-	        }
-	    }.bind(this));	
-	    	
+	    if(this.closePerEsc){
+		document.addEvent('keydown', function(event){
+		    switch(event.code){
+				    case 27:	// Esc
+				    case 88:	// 'x'
+				    case 67:	// 'c'
+				    this.close();
+				    break
+		    }
+		}.bind(this));	
+	    }	
+	    
 	    //URL-parameter zur sofortigen Darstellung auswerten
 	    var myURI = new URI(document.location);
 	    var showif = myURI.getData('showif', 'query');
@@ -100,9 +109,7 @@
 		var links = $$("a").filter(function(el) {
 		    return el.rel && el.rel.test(/^openlayer/i);
 		});
-		links.each(function(item,index){
-		    
-		    this.itemcount++;
+		links.each(function(item,index){		    
 		    
 		    item.addEvent('click', function(event){
 			event.stop(); //Prevents the browser from following the link.
@@ -113,26 +120,23 @@
 			
 		 }.bind(this));
 	     }
+	           		 
+	     this.createHtml();
 	     
-	     //nur erstellen wenn relevante Links auf dieser Seite existieren	      
-	     if(this.itemcount > 0){	
+	     if(this.showNow) {
+		  
+		   if(this.initiframe){
+		       $(this.mlIframe).tween('opacity',1);
+		   }
+		   $(this.overLayID).setStyle('display', 'block').tween('opacity',this.overLayOpacity);
+		   $(this.layerID).setStyle('display', 'block').tween('opacity',1);		 
+	     
+	     }else{
 		 
-		 this.createHtml();
-		 
-		 if(this.showNow) {
-                      
-		       if(this.initiframe){
-			   $(this.mlIframe).tween('opacity',1);
-		       }
-		       $(this.overLayID).setStyle('display', 'block').tween('opacity',this.overLayOpacity);
-		       $(this.layerID).setStyle('display', 'block').tween('opacity',1);		 
-		 
-		 }else{
-		     
-		     $(this.layerID).setStyle('display', 'none');
-		 
-		 }
-	     }	     
+		 $(this.layerID).setStyle('display', 'none');
+	     
+	     }
+	     
 	
 	},
 	
@@ -158,10 +162,13 @@
 		    height : this.parentsize.y,
 		    top: this.topheight,
 		    opacity: this.overLayOpacity  
-		}).addEvent('click', function(event){
-		    event.stop(); //Prevents the browser from following the link.
-		    this.close();	
-		}.bind(this));	    
+		});
+		if(this.closePerLayerClick){
+		    $(this.overLayID).addEvent('click', function(event){
+			event.stop(); //Prevents the browser from following the link.
+			this.close();	
+		    }.bind(this));	    
+		}
 	    }
 	    
 	    // Layer erstellen
@@ -182,11 +189,11 @@
 		    top: (this.parentsize.y - this.layerHeight) / 2,
 		    opacity: 1		    
 		});
-// 		console.log(this.layerID);
+
 	    }
 
 	    
-	    // Schliessen-Button erstellen
+// 	    // Schliessen-Button per ID erstellen
 	    if(this.drawCloseBtn){
 	    
 		var CloseLink = new Element('a', {id: this.closeID, html: this.closeTxt, href: '.'});
@@ -198,6 +205,14 @@
 	    
 	    }else{
 	        $(this.closeID).addEvent('click', function(event){
+			event.stop(); //Prevents the browser from following the link.
+			this.close();	
+		}.bind(this));
+	    }
+// 	    // Schliessen-Button per CLass erstellen
+            if($$(this.closeClass))
+            {
+	        $$('.'+this.closeClass).addEvent('click', function(event){
 			event.stop(); //Prevents the browser from following the link.
 			this.close();	
 		}.bind(this));
@@ -257,7 +272,8 @@
 	       
 		$(this.mlIframe).tween('opacity',1);
 	     }
-	   $(this.layerID).tween('opacity',1).setStyle('display', 'block');    
+	   $(this.layerID).tween('opacity',1).setStyle('display', 'block');
+	   $(this.overLayID).tween('opacity',this.overLayOpacity).setStyle('display', 'block');    
 	}
 	
     });    

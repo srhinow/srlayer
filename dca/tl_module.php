@@ -21,7 +21,8 @@
 
  */
  
-$GLOBALS['TL_DCA']['tl_module']['palettes']['campain_layer']  = 'name,type;cl_content,cl_template,cl_css_file,cl_no_param,cl_substr;cl_option_layerwidth,cl_option_layerheight,cl_option_other;cl_set_cookie,cl_cookie_name,cl_cookie_dauer';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['campain_layer']  = 'name,type;cl_content,cl_template,cl_css_file;cl_no_param,cl_substr,cl_set_mkLinkEvents;cl_option_layerwidth,cl_option_layerheight;cl_set_session;cl_set_cookie,cl_cookie_name,cl_cookie_dauer;
+{expert_legend:hide},cl_set_drawOverLay,cl_set_overLayID,cl_set_drawLayer,cl_set_LayerID,cl_set_drawCloseBtn,cl_set_closeID,cl_set_closeClass,cl_set_overLayOpacity,cl_set_closePerEsc,cl_set_closePerLayerClick,cl_set_drawLayerCenterX,cl_set_drawLayerCenterY,cl_option_other';
 
 array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array
 (
@@ -46,7 +47,7 @@ array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array
 	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_substr'],
 	    'exclude' => true,
 	    'inputType' => 'text',
-	    'eval' => array('mandatory'=>false,'maxlength'=>55,'tl_class'=>'w50'),
+	    'eval' => array('mandatory'=>false,'maxlength'=>55),
 	),
 
 	'cl_css_file' => array
@@ -62,6 +63,12 @@ array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array
 	    'exclude'                 => true,
 	    'inputType'               => 'checkbox',
 	),
+	'cl_set_session' => array
+	(
+	    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cl_set_session'],
+	    'exclude'                 => true,
+	    'inputType'               => 'checkbox',
+	),	
 	'cl_set_cookie' => array
 	(
 	    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cl_set_cookie'],
@@ -99,24 +106,120 @@ array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array
 	    'inputType' => 'text',
 	    'eval' => array('mandatory'=>true,'maxlength'=>55,'tl_class'=>'w50','rgxp'=>'digit'),
 	),
+	'cl_set_drawOverLay' => array
+	(
+	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_drawOverLay'],
+	    'exclude'     => true,
+	    'default'	  => '',
+	    'inputType'   => 'checkbox',
+	    'eval' => array('tl_class'=>'w50'),
+	),
+	'cl_set_overLayID'=> array
+	(
+	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_set_overLayID'],
+	    'default' => 'overLay',
+	    'exclude' => true,
+	    'inputType' => 'text',
+	    'eval' => array('tl_class'=>'w50'),
+	),	
+	'cl_set_drawLayer' => array
+	(
+	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_drawLayer'],
+	    'exclude'     => true,
+	    'default'	  => '',
+	    'inputType'   => 'checkbox',
+	    'eval' => array('tl_class'=>'w50'),
+	),
+	'cl_set_LayerID'=> array
+	(
+	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_set_LayerID'],
+	    'default' => 'layer',
+	    'exclude' => true,
+	    'inputType' => 'text',
+	    'eval' => array('tl_class'=>'w50'),
+	),	
+	'cl_set_drawCloseBtn' => array
+	(
+	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_drawCloseBtn'],
+	    'exclude'     => true,
+	    'default'	  => '',
+	    'inputType'   => 'checkbox',
+	    'eval' => array('tl_class'=>'w50'),
+	),
+	'cl_set_closeID'=> array
+	(
+	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_set_closeID'],
+	    'default' => 'closeBtn',
+	    'exclude' => true,
+	    'inputType' => 'text',
+	    'eval' => array('tl_class'=>'w50'),
+	),
+	'cl_set_closeClass'=> array
+	(
+	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_set_closeClass'],
+	    'default' => 'closer',
+	    'exclude' => true,
+	    'inputType' => 'text',
+	    'eval' => array('tl_class'=>'w50'),
+	),	
+	'cl_set_mkLinkEvents' => array
+	(
+	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_mkLinkEvents'],
+	    'exclude'     => true,
+	    'default'	  => '',
+	    'inputType'   => 'checkbox',
+	),
+	'cl_set_overLayOpacity' => array
+	(
+		'label'                 => &$GLOBALS['TL_LANG']['tl_module']['cl_set_overLayOpacity'],
+		'exclude'               => true,
+		'filter'                => true,
+                'default' 		=> 0.7,
+		'inputType'             => 'select',
+		'options'               => array('0.0'=>'0.0','0.1'=>'0.1','0.2'=>'0.2','0.3'=>'0.3','0.4'=>'0.4','0.5'=>'0.5','0.6'=>'0.6','0.7'=>'0.7','0.8'=>'0.8','0.9'=>'0.9','1.0'=>'1.0'),
+		'eval'			=> array('tl_class'=>'clr')
+	),
+	'cl_set_closePerEsc' => array
+	(
+	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_closePerEsc'],
+	    'exclude'     => true,
+	    'default'	  => '1',
+	    'inputType'   => 'checkbox',
+	    'eval' => array('tl_class'=>'w50'),
+	),
+	'cl_set_closePerLayerClick' => array
+	(
+	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_closePerLayerClick'],
+	    'exclude'     => true,
+	    'default'	  => '1',
+	    'inputType'   => 'checkbox',
+	    'eval' => array('tl_class'=>'w50'),
+	),
+	'cl_set_drawLayerCenterX' => array
+	(
+	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_drawLayerCenterX'],
+	    'exclude'     => true,
+	    'default'	  => '1',
+	    'inputType'   => 'checkbox',
+	    'eval' => array('tl_class'=>'w50'),
+	),
+	'cl_set_drawLayerCenterY' => array
+	(
+	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_drawLayerCenterY'],
+	    'exclude'     => true,
+	    'default'	  => '1',
+	    'inputType'   => 'checkbox',
+	    'eval' => array('tl_class'=>'w50'),
+	),											
 	'cl_option_other'=> array
 	(
 	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_option_other'],
 	    'exclude' => true,
-	    'default' => '
-	drawOverLay:false,
-	drawLayer:false,
-	drawContent: false,
-	drawCloseBtn:false,
-	drawMlIframe: false,
-	itemcount: 1,
-	mkLinkEvents: false,
-	showNow: true,
-	overLayOpacity:0.7
-	',
+	    'default' => '',
 	    'inputType'  => 'textarea',
 	    'eval' => array('mandatory'=>false,'rte'=>false,'allowHtml'=>true,'tl_class'=>'clr'),
-	),			
+	),
+			
 ));
 /**
  * Class tl_ourimages

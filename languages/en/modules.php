@@ -20,17 +20,24 @@
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
- * @copyright  Sven Rhinow 2011
- * @author     Sven Rhinow <sven@sr-tag.de>
- * @package    KampagnenLayer
- * @license    LGPL
+ * PHP version 5
+ * @copyright  sr-tag Webentwicklung 2011 
+ * @author     Sven Rhinow 
+ * @package    campainLayer 
+ * @license    LGPL 
  * @filesource
  */
 
 
 /**
+ * Back end modules
+ */
+$GLOBALS['TL_LANG']['MOD'][''] = array('', '');
+
+
+/**
  * Front end modules
  */
-$GLOBALS['TL_LANG']['FMD']['campain_layer']        = array('Kampagnen-Layer','');
+$GLOBALS['TL_LANG']['FMD'][''] = array('', '');
 
 ?>
