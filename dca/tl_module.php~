@@ -21,7 +21,7 @@
 
  */
  
-$GLOBALS['TL_DCA']['tl_module']['palettes']['campain_layer']  = 'name,type;cl_content,cl_option_layerwidth,cl_option_layerheight,cl_template,cl_css_file;cl_no_param,cl_substr,cl_set_mkLinkEvents,cl_start,cl_stop;cl_set_session;cl_set_cookie,cl_cookie_name,cl_cookie_dauer;
+$GLOBALS['TL_DCA']['tl_module']['palettes']['campain_layer']  = 'name,type;cl_content,cl_template,cl_css_file;cl_no_param,cl_substr,cl_set_mkLinkEvents,cl_start,cl_stop;cl_option_layerwidth,cl_option_layerheight;cl_set_session;cl_set_cookie,cl_cookie_name,cl_cookie_dauer;
 {expert_legend:hide},cl_set_drawOverLay,cl_set_overLayID,cl_set_drawLayer,cl_set_LayerID,cl_set_drawCloseBtn,cl_set_closeID,cl_set_closeClass,cl_set_overLayOpacity,cl_set_closePerEsc,cl_set_closePerLayerClick,cl_set_drawLayerCenterX,cl_set_drawLayerCenterY,cl_option_other';
 
 array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array

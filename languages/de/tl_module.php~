@@ -47,8 +47,8 @@ $GLOBALS['TL_LANG']['tl_module']['cl_set_session']         = array('Session-Cook
 $GLOBALS['TL_LANG']['tl_module']['cl_set_cookie']         = array('ein Cookie setzen', 'um die mehrmalige Anzeige per Cookie zu beschränken');
 $GLOBALS['TL_LANG']['tl_module']['cl_cookie_name']         = array('Cookie-Name', 'wenn es leer bleibt wird ein Name generiert.');
 $GLOBALS['TL_LANG']['tl_module']['cl_cookie_dauer']         = array('Cookie-Dauer', 'in Millisekunden Standart 3600 = 1 Stunde.');
-$GLOBALS['TL_LANG']['tl_module']['cl_start']       = array('Anzeigen ab', 'Den Layer erst ab diesem Tag auf der Webseite anzeigen.');
-$GLOBALS['TL_LANG']['tl_module']['cl_stop']        = array('Anzeigen bis', 'Den Layer nur bis zu diesem Tag auf der Webseite anzeigen.');
+$GLOBALS['TL_LANG']['tl_article']['cl_start']       = array('Anzeigen ab', 'Den Layer erst ab diesem Tag auf der Webseite anzeigen.');
+$GLOBALS['TL_LANG']['tl_article']['cl_stop']        = array('Anzeigen bis', 'Den Layer nur bis zu diesem Tag auf der Webseite anzeigen.');
 
 $GLOBALS['TL_LANG']['tl_module']['cl_set_drawOverLay']         = array('Overlay-Bereich per Javascript anlegen.', 'Standart = false. Dieses Feld nur aktivieren, wenn in ihrem Layout kein Overlay-Bereich vorgesehen ist und einer per Javascript angelegt werden soll.');
 $GLOBALS['TL_LANG']['tl_module']['cl_set_overLayID']        = array('OverLay-ID','die ID des Overlay-Bereiches');

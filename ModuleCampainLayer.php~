@@ -108,7 +108,7 @@ class ModuleCampainLayer extends Module
            }
            
            //test Stop-Date
-           if(strlen($this->cl_stop) && ($this->cl_stop < time()))
+           if(strlen($this->cl_stop) && ($this->cl_stop > time()))
            {
               return false;
            }

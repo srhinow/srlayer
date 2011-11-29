@@ -40,6 +40,6 @@ CREATE TABLE `tl_module` (
  `cl_set_drawLayerCenterX` char(1) NOT NULL default '1',
  `cl_set_drawLayerCenterY` char(1) NOT NULL default '1',
  `cl_option_other` text NULL,
- `cl_start` varchar(10) NOT NULL default '',
- `cl_stop` varchar(10) NOT NULL default '', 
+  `start` varchar(10) NOT NULL default '',
+  `stop` varchar(10) NOT NULL default '', 
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
