@@ -1,260 +1,284 @@
-<?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
+<?php
 
 /**
- * TYPOlight webCMS
- *
- * The TYPOlight webCMS is an accessible web content management system that 
- * specializes in accessibility and generates W3C-compliant HTML code. It 
- * provides a wide range of functionality to develop professional websites 
- * including a built-in search engine, form generator, file and user manager, 
- * CSS engine, multi-language support and many more. For more information and 
- * additional TYPOlight applications like the TYPOlight MVC Framework please 
- * visit the project website http://www.typolight.org.
- *
  * This file modifies the data container array of table tl_module.
  *
- * @copyright  Sven Rhinow 2011
+ * @copyright  Sven Rhinow 2014
  * @author     Sven Rhinow <sven@sr-tag.de>
- * @package    CampainLayer
+ * @package    srlayer
  * @license    LGPL
  * @filesource
 
  */
- 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['campain_layer']  = 'name,type;cl_content,cl_option_layerwidth,cl_option_layerheight,cl_template,cl_css_file;cl_no_param,cl_substr,cl_set_mkLinkEvents,cl_start,cl_stop;cl_set_session;cl_set_cookie,cl_cookie_name,cl_cookie_dauer;
-{expert_legend:hide},cl_set_drawOverLay,cl_set_overLayID,cl_set_drawLayer,cl_set_LayerID,cl_set_drawCloseBtn,cl_set_closeID,cl_set_closeClass,cl_set_overLayOpacity,cl_set_closePerEsc,cl_set_closePerLayerClick,cl_set_drawLayerCenterX,cl_set_drawLayerCenterY,cl_option_other';
+
+$GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'] = array_merge( $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'], array('srl_set_cookie', 'srl_set_expertoptions'));
+$GLOBALS['TL_DCA']['tl_module']['palettes']['srlayer']  = 'name,type;{layer_legend},srl_content,srl_option_layerwidth,srl_option_layerheight;{htmlcss_legend},srl_template,srl_css_file;{show_legend},srl_no_param,srl_set_mkLinkEvents,srl_substr,srl_delay,srl_start,srl_stop;{session_legend},srl_set_session;{cookie_legend},srl_set_cookie;{expert_legend:hide},srl_set_expertoptions';
+
+$GLOBALS['TL_DCA']['tl_module']['subpalettes'] = array_merge($GLOBALS['TL_DCA']['tl_module']['subpalettes'], 
+	array(
+		'srl_set_cookie' => 'srl_cookie_name,srl_cookie_dauer',
+		'srl_set_expertoptions' => 'srl_set_overLayID,srl_set_layerID,srl_set_closeID,srl_set_closeClass,srl_set_overLayOpacity,srl_set_duration,srl_set_closePerEsc,srl_set_closePerLayerClick,srl_set_drawLayerCenterX,srl_set_drawLayerCenterY,srl_option_other'
+	)
+);
 
 array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array
 (
-	'cl_template' => array
+	'srl_template' 		=> array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cl_template'],
-		'exclude'                 => true,
-		'inputType'               => 'select',
-// 		'options'                 => $this->getTemplateGroup('cnt_')
-		'options_callback'	  => array('kampagnen_layer','get_Template'),
-		'eval'			=> array('tl_class'=>'clr')
+		'label'         => &$GLOBALS['TL_LANG']['tl_module']['srl_template'],
+		'default'       => 'srl_default',
+		'exclude'       => true,
+		'inputType'     => 'select',
+		'options_callback'	=> array('tl_module_srlayer','getLayerTemplate'),
+		'sql'			=> "varchar(255) NOT NULL default ''"
 	),
-	'cl_content'=> array
+	'srl_content'		=> array
 	(
-	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_content'],
-	    'exclude' => true,
-	    'inputType'  => 'textarea',
-	    'eval' => array('mandatory'=>false,'rte'=>false,'allowHtml'=>true,'tl_class'=>'clr'),
-	),
-	'cl_substr'=> array
-	(
-	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_substr'],
-	    'exclude' => true,
-	    'inputType' => 'text',
-	    'eval' => array('mandatory'=>false,'maxlength'=>55),
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_content'],
+	    'exclude' 		=> true,
+	    'inputType'  	=> 'textarea',
+	    'eval' 			=> array('mandatory'=>false,'rte'=>false,'allowHtml'=>true,'tl_class'=>'clr'),
+		'sql'			=> "text NULL"
+
 	),
 
-	'cl_css_file' => array
+	'srl_css_file' 		=> array
 	(
-	    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cl_css_file'],
-	    'exclude'                 => true,
-	    'inputType'               => 'fileTree',
-	    'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'mandatory'=>false,'extensions'=>'css','tl_class'=>'clr')
+	    'label'         => &$GLOBALS['TL_LANG']['tl_module']['srl_css_file'],
+	    'exclude'       => true,
+	    'inputType'     => 'fileTree',
+	    'eval'          => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'mandatory'=>false,'extensions'=>'css','tl_class'=>'clr'),
+		'sql'			=> "varchar(255) NOT NULL default ''"
 	),
-	'cl_no_param' => array
+	'srl_no_param' => array
 	(
-	    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cl_no_param'],
-	    'exclude'                 => true,
-	    'inputType'               => 'checkbox',
+	    'label'         => &$GLOBALS['TL_LANG']['tl_module']['srl_no_param'],
+	    'exclude'       => true,
+	    'inputType'     => 'checkbox',
+	   	'eval' 			=> array('tl_class'=>'w50'),
+		'sql'			=> "char(1) NOT NULL default ''"
 	),
-	'cl_set_session' => array
+	'srl_set_mkLinkEvents' => array
 	(
-	    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cl_set_session'],
-	    'exclude'                 => true,
-	    'inputType'               => 'checkbox',
-	),	
-	'cl_set_cookie' => array
-	(
-	    'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cl_set_cookie'],
-	    'exclude'                 => true,
-	    'inputType'               => 'checkbox',
+	    'label'       	=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_mkLinkEvents'],
+	    'exclude'     	=> true,
+	    'default'	  	=> '',
+	    'inputType'   	=> 'checkbox',
+	    'eval' 			=> array('tl_class'=>'w50'),
+		'sql'			=> "char(1) NOT NULL default ''"
 	),
-	'cl_cookie_name'=> array
+	'srl_substr'			=> array
 	(
-	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_cookie_name'],
-	    'exclude' => true,
-	    'inputType' => 'text',
-	    'eval' => array('mandatory'=>false,'maxlength'=>55),
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_substr'],
+	    'exclude' 		=> true,
+	    'inputType' 	=> 'text',
+	    'eval' 			=> array('mandatory'=>false,'maxlength'=>55, 'tl_class'=>'w50'),
+		'sql'			=> "varchar(55) NOT NULL default ''"
 	),
-	'cl_cookie_dauer'=> array
+	'srl_delay'			=> array
 	(
-	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_cookie_dauer'],
-	    'default' => 3600,
-	    'exclude' => true,
-	    'inputType' => 'text',
-	    'eval' => array('mandatory'=>false,'maxlength'=>55,'rgxp'=>'digit'),
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_delay'],
+	    'exclude' 		=> true,
+	    'inputType' 	=> 'text',
+	    'eval' 			=> array('mandatory'=>false,'maxlength'=>10, 'rgxp'=>'digit', 'tl_class'=>'w50'),
+		'sql'			=> "varchar(10) NOT NULL default ''"
 	),
-	'cl_option_layerwidth'=> array
+	'srl_set_session' 	=> array
 	(
-	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_layer_width'],
-	    'default' => '600',
-	    'exclude' => true,
-	    'inputType' => 'text',
-	    'eval' => array('mandatory'=>true,'maxlength'=>55,'tl_class'=>'w50','rgxp'=>'digit'),
+	    'label'         => &$GLOBALS['TL_LANG']['tl_module']['srl_set_session'],
+	    'exclude'   	=> true,
+	    'inputType'     => 'checkbox',
+		'sql'			=> "char(1) NOT NULL default ''"
 	),
-	'cl_option_layerheight'=> array
+	'srl_set_cookie' 	=> array
 	(
-	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_layer_height'],
-	    'default' => '450',
-	    'exclude' => true,
-	    'inputType' => 'text',
-	    'eval' => array('mandatory'=>true,'maxlength'=>55,'tl_class'=>'w50','rgxp'=>'digit'),
+	    'label'         => &$GLOBALS['TL_LANG']['tl_module']['srl_set_cookie'],
+	    'exclude'       => true,
+	    'inputType'     => 'checkbox',
+	    'eval'          => array('submitOnChange'=>true),
+		'sql'			=> "char(1) NOT NULL default ''"
 	),
-	'cl_set_drawOverLay' => array
+	'srl_cookie_name' 	=> array
 	(
-	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_drawOverLay'],
-	    'exclude'     => true,
-	    'default'	  => '',
-	    'inputType'   => 'checkbox',
-	    'eval' => array('tl_class'=>'w50'),
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_cookie_name'],
+	    'exclude' 		=> true,
+	    'inputType' 	=> 'text',
+	    'eval' 			=> array('mandatory'=>false,'maxlength'=>55, 'tl_class'=>'w50'),
+		'sql'			=> "varchar(55) NOT NULL default ''"
 	),
-	'cl_set_overLayID'=> array
+	'srl_cookie_dauer' 	=> array
 	(
-	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_set_overLayID'],
-	    'default' => 'overLay',
-	    'exclude' => true,
-	    'inputType' => 'text',
-	    'eval' => array('tl_class'=>'w50'),
-	),	
-	'cl_set_drawLayer' => array
-	(
-	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_drawLayer'],
-	    'exclude'     => true,
-	    'default'	  => '',
-	    'inputType'   => 'checkbox',
-	    'eval' => array('tl_class'=>'w50'),
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_cookie_dauer'],
+	    'default' 		=> '3600',
+	    'exclude' 		=> true,
+	    'inputType' 	=> 'text',
+	    'eval' 			=> array('mandatory'=>false,'maxlength'=>10,'rgxp'=>'digit', 'tl_class'=>'w50'),
+		'sql'			=> "varchar(10) NOT NULL default ''"
 	),
-	'cl_set_LayerID'=> array
+	'srl_option_layerwidth'=> array
 	(
-	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_set_LayerID'],
-	    'default' => 'layer',
-	    'exclude' => true,
-	    'inputType' => 'text',
-	    'eval' => array('tl_class'=>'w50'),
-	),	
-	'cl_set_drawCloseBtn' => array
-	(
-	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_drawCloseBtn'],
-	    'exclude'     => true,
-	    'default'	  => '',
-	    'inputType'   => 'checkbox',
-	    'eval' => array('tl_class'=>'w50'),
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_layer_width'],
+	    'default' 		=> '600',
+	    'exclude' 		=> true,
+	    'inputType' 	=> 'text',
+	    'eval' 			=> array('mandatory'=>true,'maxlength'=>55,'tl_class'=>'w50','rgxp'=>'digit'),
+		'sql'			=> "varchar(55) NOT NULL default ''"
 	),
-	'cl_set_closeID'=> array
+	'srl_option_layerheight' => array
 	(
-	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_set_closeID'],
-	    'default' => 'closeBtn',
-	    'exclude' => true,
-	    'inputType' => 'text',
-	    'eval' => array('tl_class'=>'w50'),
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_layer_height'],
+	    'default' 		=> '450',
+	    'exclude' 		=> true,
+	    'inputType' 	=> 'text',
+	    'eval' 			=> array('mandatory'=>true,'maxlength'=>55,'tl_class'=>'w50','rgxp'=>'digit'),
+		'sql'			=> "varchar(55) NOT NULL default ''"
 	),
-	'cl_set_closeClass'=> array
+	'srl_set_expertoptions' 	=> array
 	(
-	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_set_closeClass'],
-	    'default' => 'closer',
-	    'exclude' => true,
-	    'inputType' => 'text',
-	    'eval' => array('tl_class'=>'w50'),
-	),	
-	'cl_set_mkLinkEvents' => array
-	(
-	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_mkLinkEvents'],
-	    'exclude'     => true,
-	    'default'	  => '',
-	    'inputType'   => 'checkbox',
+	    'label'         => &$GLOBALS['TL_LANG']['tl_module']['srl_set_expertoptions'],
+	    'exclude'       => true,
+	    'inputType'     => 'checkbox',
+	    'eval'          => array('submitOnChange'=>true),
+		'sql'			=> "char(1) NOT NULL default ''"
 	),
-	'cl_set_overLayOpacity' => array
+
+	'srl_set_overLayID'	=> array
 	(
-		'label'                 => &$GLOBALS['TL_LANG']['tl_module']['cl_set_overLayOpacity'],
-		'exclude'               => true,
-		'filter'                => true,
-                'default' 		=> 0.7,
-		'inputType'             => 'select',
-		'options'               => array('0.0'=>'0.0','0.1'=>'0.1','0.2'=>'0.2','0.3'=>'0.3','0.4'=>'0.4','0.5'=>'0.5','0.6'=>'0.6','0.7'=>'0.7','0.8'=>'0.8','0.9'=>'0.9','1.0'=>'1.0'),
-		'eval'			=> array('tl_class'=>'clr')
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_overLayID'],
+	    'default' 		=> 'overLay',
+	    'exclude' 		=> true,
+	    'inputType' 	=> 'text',
+	    'eval' 			=> array('tl_class'=>'w50'),
+		'sql'			=> "varchar(55) NOT NULL default 'overLay'"
 	),
-	'cl_set_closePerEsc' => array
+	'srl_set_layerID'	=> array
 	(
-	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_closePerEsc'],
-	    'exclude'     => true,
-	    'default'	  => '1',
-	    'inputType'   => 'checkbox',
-	    'eval' => array('tl_class'=>'w50'),
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_layerID'],
+	    'default' 		=> 'layer',
+	    'exclude' 		=> true,
+	    'inputType' 	=> 'text',
+	    'eval' 			=> array('tl_class'=>'w50'),
+		'sql'			=> "varchar(55) NOT NULL default 'layer'"
 	),
-	'cl_set_closePerLayerClick' => array
+	'srl_set_closeID'	=> array
 	(
-	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_closePerLayerClick'],
-	    'exclude'     => true,
-	    'default'	  => '1',
-	    'inputType'   => 'checkbox',
-	    'eval' => array('tl_class'=>'w50'),
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_closeID'],
+	    'default' 		=> 'closeBtn',
+	    'exclude' 		=> true,
+	    'inputType' 	=> 'text',
+	    'eval' 			=> array('tl_class'=>'w50'),
+		'sql'			=> "varchar(55) NOT NULL default 'closeBtn'"
 	),
-	'cl_set_drawLayerCenterX' => array
+	'srl_set_closeClass'	=> array
 	(
-	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_drawLayerCenterX'],
-	    'exclude'     => true,
-	    'default'	  => '1',
-	    'inputType'   => 'checkbox',
-	    'eval' => array('tl_class'=>'w50'),
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_closeClass'],
+	    'default' 		=> 'closer',
+	    'exclude' 		=> true,
+	    'inputType' 	=> 'text',
+	    'eval' 			=> array('tl_class'=>'w50'),
+		'sql'			=> "varchar(55) NOT NULL default 'closer'"
 	),
-	'cl_set_drawLayerCenterY' => array
+	'srl_set_overLayOpacity' => array
 	(
-	    'label'       => &$GLOBALS['TL_LANG']['tl_module']['cl_set_drawLayerCenterY'],
-	    'exclude'     => true,
-	    'default'	  => '1',
-	    'inputType'   => 'checkbox',
-	    'eval' => array('tl_class'=>'w50'),
-	),											
-	'cl_option_other'=> array
-	(
-	    'label' => &$GLOBALS['TL_LANG']['tl_module']['cl_option_other'],
-	    'exclude' => true,
-	    'default' => '',
-	    'inputType'  => 'textarea',
-	    'eval' => array('mandatory'=>false,'rte'=>false,'allowHtml'=>true,'tl_class'=>'clr'),
+		'label'         => &$GLOBALS['TL_LANG']['tl_module']['srl_set_overLayOpacity'],
+		'exclude'       => true,
+		'filter'        => true,
+        'default' 		=> 0.7,
+		'inputType'     => 'select',
+		'options'       => array('0.0'=>'0.0','0.1'=>'0.1','0.2'=>'0.2','0.3'=>'0.3','0.4'=>'0.4','0.5'=>'0.5','0.6'=>'0.6','0.7'=>'0.7','0.8'=>'0.8','0.9'=>'0.9','1.0'=>'1.0'),
+		'eval'			=> array('tl_class'=>'w50'),
+		'sql'			=> "char(10) NOT NULL default ''"
 	),
-	'cl_start' => array
+	'srl_set_duration'	=> array
 	(
-		'exclude'                 => true,
-		'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cl_start'],
-		'inputType'               => 'text',
-		'eval'                    => array('rgxp'=>'datim', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_duration'],
+	    'default' 		=> '1000',
+	    'exclude' 		=> true,
+	    'inputType' 	=> 'text',
+	    'eval' 			=> array('tl_class'=>'w50'),
+		'sql'			=> "varchar(55) NOT NULL default '1000'"
 	),
-	'cl_stop' => array
+	'srl_set_closePerEsc' => array
 	(
-		'exclude'                 => true,
-		'label'                   => &$GLOBALS['TL_LANG']['tl_module']['cl_stop'],
-		'inputType'               => 'text',
-		'eval'                    => array('rgxp'=>'datim', 'datepicker'=>true, 'tl_class'=>'w50 wizard')
+	    'label'       	=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_closePerEsc'],
+	    'exclude'     	=> true,
+	    'default'	  	=> '1',
+	    'inputType'   	=> 'checkbox',
+	    'eval' 			=> array('tl_class'=>'w50'),
+		'sql'			=> "char(1) NOT NULL default '1'"
+	),
+	'srl_set_closePerLayerClick' => array
+	(
+	    'label'       	=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_closePerLayerClick'],
+	    'exclude'     	=> true,
+	    'default'	  	=> '1',
+	    'inputType'   	=> 'checkbox',
+	    'eval'	 		=> array('tl_class'=>'w50'),
+		'sql'			=> "char(1) NOT NULL default '1'"
+	),
+	'srl_set_drawLayerCenterX' => array
+	(
+	    'label'     	=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_drawLayerCenterX'],
+	    'exclude'   	=> true,
+	    'default'		=> '1',
+	    'inputType' 	=> 'checkbox',
+	    'eval'			=> array('tl_class'=>'w50'),
+		'sql'			=> "char(1) NOT NULL default '1'"
+	),
+	'srl_set_drawLayerCenterY' => array
+	(
+	    'label'     => &$GLOBALS['TL_LANG']['tl_module']['srl_set_drawLayerCenterY'],
+	    'exclude'   => true,
+	    'default'	=> '1',
+	    'inputType' => 'checkbox',
+	    'eval' 		=> array('tl_class'=>'w50'),
+		'sql'		=> "char(1) NOT NULL default '1'"
+	),
+	'srl_option_other' => array
+	(
+	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_option_other'],
+	    'exclude' 		=> true,
+	    'default' 		=> '',
+	    'inputType'  	=> 'textarea',
+	    'eval' 			=> array('mandatory'=>false,'rte'=>false,'allowHtml'=>true,'tl_class'=>'clr'),
+		'sql'			=> "text NULL"
+	),
+	'srl_start' => array
+	(
+		'exclude'       => true,
+		'label'         => &$GLOBALS['TL_LANG']['tl_module']['srl_start'],
+		'inputType'     => 'text',
+		'eval'          => array('rgxp'=>'datim', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
+		'sql'			=> "varchar(10) NOT NULL default ''"
+	),
+	'srl_stop' => array
+	(
+		'exclude'       => true,
+		'label'         => &$GLOBALS['TL_LANG']['tl_module']['srl_stop'],
+		'inputType'     => 'text',
+		'eval'          => array('rgxp'=>'datim', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
+		'sql'			=> "varchar(10) NOT NULL default ''"
 	)
-			
-));
+)
+);
+
 /**
- * Class tl_ourimages
+ * Class tl_module_srlayer
  *
  * Provide miscellaneous methods that are used by the data configuration array.
  * @copyright  Leo Feyer 2008-2009
  * @author     Leo Feyer <leo@typolight.org>
  * @package    Controller
  */
-class kampagnen_layer extends Backend
+class tl_module_srlayer extends Backend
 {
-
-     public function get_Template(DataContainer $dc)
+	/**
+	 * Return all navigation templates as array
+	 * @return array
+	 */
+    public function getLayerTemplate()
     {
-	if(version_compare(VERSION.BUILD, '2.9.0','>='))
-	{
-	    return $this->getTemplateGroup('cl_', $dc->activeRecord->pid);
-	}else{
-	    return $this->getTemplateGroup('cl_');
-	}
+		return $this->getTemplateGroup('srl_');
     }
-
  }
-?>
+
