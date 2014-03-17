@@ -1,0 +1,10 @@
+<?php if($this->showLayerHtml): ?>
+<div id="overLay"></div>
+ <div id="layer">
+    <div id="closeBtn">schliessen</div>
+    <div class="layer_content">
+    	<?php echo $this->content; ?>
+    </div>
+</div><!--#layer-->
+<?php endif; ?>
+
