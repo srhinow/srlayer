@@ -56,7 +56,7 @@ class ModuleSRLayer extends \Module
 
 			return $objTemplate->parse();
 		}
-		if($this->SRL_template != '') $strTemplate = $this->SRL_template;
+		if($this->srl_template != '') $strTemplate = $this->srl_template;
 
 		return parent::generate();
 	}
