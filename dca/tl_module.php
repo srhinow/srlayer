@@ -145,38 +145,38 @@ array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array
 	'srl_set_overLayID'	=> array
 	(
 	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_overLayID'],
-	    'default' 		=> 'overLay',
+	    'default' 		=> 'srl_overLay',
 	    'exclude' 		=> true,
 	    'inputType' 	=> 'text',
 	    'eval' 			=> array('tl_class'=>'w50'),
-		'sql'			=> "varchar(55) NOT NULL default 'overLay'"
+		'sql'			=> "varchar(55) NOT NULL default 'srl_overLay'"
 	),
 	'srl_set_layerID'	=> array
 	(
 	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_layerID'],
-	    'default' 		=> 'layer',
+	    'default' 		=> 'srl_layer',
 	    'exclude' 		=> true,
 	    'inputType' 	=> 'text',
 	    'eval' 			=> array('tl_class'=>'w50'),
-		'sql'			=> "varchar(55) NOT NULL default 'layer'"
+		'sql'			=> "varchar(55) NOT NULL default 'srl_layer'"
 	),
 	'srl_set_closeID'	=> array
 	(
 	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_closeID'],
-	    'default' 		=> 'closeBtn',
+	    'default' 		=> 'srl_closeBtn',
 	    'exclude' 		=> true,
 	    'inputType' 	=> 'text',
 	    'eval' 			=> array('tl_class'=>'w50'),
-		'sql'			=> "varchar(55) NOT NULL default 'closeBtn'"
+		'sql'			=> "varchar(55) NOT NULL default 'srl_closeBtn'"
 	),
 	'srl_set_closeClass'	=> array
 	(
 	    'label' 		=> &$GLOBALS['TL_LANG']['tl_module']['srl_set_closeClass'],
-	    'default' 		=> 'closer',
+	    'default' 		=> 'srl_closer',
 	    'exclude' 		=> true,
 	    'inputType' 	=> 'text',
 	    'eval' 			=> array('tl_class'=>'w50'),
-		'sql'			=> "varchar(55) NOT NULL default 'closer'"
+		'sql'			=> "varchar(55) NOT NULL default 'srl_closer'"
 	),
 	'srl_set_overLayOpacity' => array
 	(

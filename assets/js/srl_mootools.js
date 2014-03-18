@@ -8,19 +8,19 @@
 
 	options:{
 	    parentEl : 'top',
-	    overLayID: 'overLay',
+	    overLayID: 'srl_overLay',
 	    drawOverLay: false, // false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert
 	    overLayOpacity: 0.7,
-	    layerID : 'layer',
+	    layerID : 'srl_layer',
 	    layerWidth: 500,
 	    layerHeight: 400,
 	    drawLayer: false, //false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert
 	    closePerLayerClick:true,
 	    closePerEsc:true,
-	    closeID : 'closeBtn',
-	    closeClass: 'closer',
+	    closeID : 'srl_closeBtn',
+	    closeClass: 'srl_closer',
 	    drawCloseBtn: false, //false = nicht erstellen wenn ein Element mit dieser ID schon im HTML existiert
-	    contentID : 'layercontent',
+	    contentID : 'srl_content',
 	    mkLinkEvents: true, // wenn false wird kein Link mit dem Click-Event ausgestattet (z.B. beim sortigen anzeigen)
 	    duration : 1000,
         drawLayerCenterY:true,

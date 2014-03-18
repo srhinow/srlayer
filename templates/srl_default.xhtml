@@ -1,6 +1,9 @@
-<div id="overLay"></div>
- <div id="layer">
-    <div id="closeBtn">schliessen</div>
-    <?php echo $this->content; ?>
+<?php if($this->showLayerHtml): ?>
+<div id="srl_overLay"></div>
+ <div id="srl_layer">
+    <div id="srl_closeBtn">schliessen</div>
+    <div class="srl_content">
+    	<?php echo $this->content; ?>
+    </div>
 </div><!--#layer-->
-
+<?php endif; ?>

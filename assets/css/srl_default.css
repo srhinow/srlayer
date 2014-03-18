@@ -1,4 +1,4 @@
-#overLay{
+#srl_overLay{
 	position: fixed;
 	z-index: 9998;
 	top: 0;
@@ -10,7 +10,7 @@
 	display:none;
 /* 		border:3px solid #f00; */
 }
-#layer{
+#srl_layer{
     position:fixed;
     z-index: 9999;
     height:460px;
@@ -23,7 +23,7 @@
 border-radius: 10px;
 }
 
-#closeBtn {
+#srl_closeBtn {
 	position:absolute;
 	right:10px;
 	top:10px;
@@ -34,7 +34,7 @@ border-radius: 10px;
 	text-indent:-9999px;
 	cursor: pointer;
 }
-.layer_content{
+.srl_content{
 	position:relative;
 	overflow: auto;
     padding:20px;
