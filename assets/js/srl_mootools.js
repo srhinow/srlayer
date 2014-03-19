@@ -59,10 +59,10 @@
         //resize and positon if resize browser
 	    window.addEvent('resize', function()
 	    {
-		    //your logic goes here
  		    this.parentsize = this.parentEl.getSize();
 
-		    $(this.overLayID).setStyles({
+		    $(this.overLayID).setStyles(
+		    {
 		    	width : this.parentsize.x,
 				height : this.parentsize.y
 			});
@@ -76,12 +76,13 @@
 	    if(this.closePerEsc)
 	    {
 			document.addEvent('keydown', function(event){
-			    switch(event.code){
-					    case 27:	// Esc
-					    case 88:	// 'x'
-					    case 67:	// 'c'
-					    this.close();
-					    break
+			    switch(event.code)
+			    {
+				    case 27:	// Esc
+				    case 88:	// 'x'
+				    case 67:	// 'c'
+				    this.close();
+				    break
 			    }
 			}.bind(this));
 	    }
@@ -152,10 +153,12 @@
 		    	height : this.layerHeight,
 		    	opacity: 0
 			});
-	       var centerLeft = (this.parentsize.x - this.layerWidth) / 2;
-	       var centerTop = (this.parentsize.y - this.layerHeight) / 2;
-	       if(this.drawLayerCenterX) $(this.layerID).setStyle( 'left', centerLeft ); 
-	       if(this.drawLayerCenterY) $(this.layerID).setStyle( 'top',centerTop ); 
+
+			var centerLeft = (this.parentsize.x - this.layerWidth) / 2;
+			var centerTop = (this.parentsize.y - this.layerHeight) / 2;
+
+			if(this.drawLayerCenterX) $(this.layerID).setStyle( 'left', centerLeft ); 
+			if(this.drawLayerCenterY) $(this.layerID).setStyle( 'top',centerTop ); 
 	    }
 
  	    // add event on close-button
@@ -182,26 +185,29 @@
 
 	close: function()
 	{
-	   $(this.layerID).tween('opacity',0).setStyle('display', 'none');
-	   $(this.overLayID).tween('opacity',0).setStyle('display', 'none');
+	   if($(this.layerID)) $(this.layerID).tween('opacity',0).setStyle('display', 'none');
+	   if($(this.overLayID)) $(this.overLayID).tween('opacity',0).setStyle('display', 'none');
 	},
 
 	open: function(el)
 	{
-	    $(this.layerID).set('tween',{
-	    		duration: this.duration,
-				transition: Fx.Transitions.Quad.easeIn,
-	    });
-		$(this.layerID).setStyle('display', 'block').tween('opacity',1);
-
-	    $(this.overLayID).set('tween',{
-	    		duration: this.duration,
-				transition: Fx.Transitions.Quad.easeIn,
-	    });
-		$(this.overLayID).setStyle('display', 'block').tween('opacity',this.overLayOpacity);
-
+	    if($(this.layerID))
+    	{
+			$(this.layerID).set('tween',{
+					duration: this.duration,
+					transition: Fx.Transitions.Quad.easeIn,
+			});
+			$(this.layerID).setStyle('display', 'block').tween('opacity',1);
+		}
+		if($(this.overLayID))
+		{
+			$(this.overLayID).set('tween',{
+					duration: this.duration,
+					transition: Fx.Transitions.Quad.easeIn,
+			});
+			$(this.overLayID).setStyle('display', 'block').tween('opacity',this.overLayOpacity);
+		}
 	}
-
 } );
 // var ml = new  myLayer();
 

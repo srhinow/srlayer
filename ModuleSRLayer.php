@@ -143,7 +143,7 @@ class ModuleSRLayer extends \Module
 			if(is_numeric($this->srl_option_layerheight)) $this->optionsArr[] = 'layerHeight:'.$this->srl_option_layerheight;
 
 			//expert options
-			if($this->srl_set_expertoptions == 1)
+			if($this->srl_set_jsoptions == 1)
 			{
 				if(strlen($this->srl_set_overLayID)) $this->optionsArr[] = "overLayID:'".$this->srl_set_overLayID."'";
 				if(strlen($this->srl_set_layerID)) $this->optionsArr[] = "layerID:'".$this->srl_set_layerID."'";
@@ -173,6 +173,7 @@ class ModuleSRLayer extends \Module
 
 			$this->Template->content = $this->srl_content;
 			$this->Template->showLayerHtml = $this->show;
+			$this->Template->hideOverlay = ($this->srl_hideOverlay == 1) ? true : false;
 		}
 
 	}

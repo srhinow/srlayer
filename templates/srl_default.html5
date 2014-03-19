@@ -1,9 +1,9 @@
 <?php if($this->showLayerHtml): ?>
-<div id="srl_overLay"></div>
- <div id="srl_layer">
-    <div id="srl_closeBtn">schliessen</div>
-    <div class="srl_content">
-    	<?php echo $this->content; ?>
-    </div>
-</div><!--#layer-->
+	<?php if(!$this->hideOverlay): ?><div id="srl_overLay"></div><?php endif; ?>
+	<div id="srl_layer">
+		<div id="srl_closeBtn">schliessen</div>
+		<div class="srl_content">
+			<?php echo $this->content; ?>
+		</div>
+	</div><!--#srl_layer-->
 <?php endif; ?>
