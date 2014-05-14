@@ -49,7 +49,7 @@ array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array
 	    'exclude'       => true,
 	    'inputType'     => 'fileTree',
 	    'eval'          => array('fieldType'=>'radio', 'files'=>true, 'filesOnly'=>true, 'mandatory'=>false,'extensions'=>'css','tl_class'=>'clr'),
-		'sql'			=> "varchar(255) NOT NULL default ''"
+		'sql'			=> "binary(16) NULL"
 	),
 	'srl_no_param' => array
 	(
