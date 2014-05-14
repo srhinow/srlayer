@@ -160,8 +160,16 @@ class ModuleSRLayer extends \Module
 			$jsOptions = implode(', ',$this->optionsArr);
 
 			//eigene CSS-Auszeichnungen aus CSS-Datei
-			if($this->srl_css_file) $GLOBALS['TL_CSS'][] = $this->srl_css_file;
-			else $GLOBALS['TL_CSS'][] =  $GLOBALS['SRL_CSS'].'?'.time();
+			$cssObjFile = \FilesModel::findByUuid($this->srl_css_file);
+			if ($cssObjFile === null)
+			{
+				if (!Validator::isUuid($this->srl_css_file))
+				{
+				    $this->log($GLOBALS['TL_LANG']['ERR']['version2format'],'ModuleSRLayer.php srl_css_file','TL_ERROR');
+				}
+			}
+			
+			$GLOBALS['TL_CSS'][] = ($cssObjFile->path) ? $cssObjFile->path : $GLOBALS['SRL_CSS'].'?'.time();
 
 			foreach($GLOBALS['SRL_JS']['mootools'] as $jsSource)
 			{
