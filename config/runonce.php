@@ -38,5 +38,8 @@ class srlayerRunonceJob extends Controller
     }
 }
 
-$srlayerRunonceJob = new srlayerRunonceJob();
-$srlayerRunonceJob->run();  
+if (version_compare(VERSION,'3.2','>=')) 
+{ 
+    $srlayerRunonceJob = new srlayerRunonceJob();
+    $srlayerRunonceJob->run();  
+}
