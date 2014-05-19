@@ -87,11 +87,13 @@
 			}.bind(this));
 	    }
 
-	    //add event of all links with rel="openlayer"
+	    //add event of all links with rel="openlayer" or class="openlayer"
 	    if(this.mkLinkEvents)
 	    {
 			var links = $$("a").filter(function(el) {
-			    return el.rel && el.rel.test(/^openlayer/i);
+			    if( el.rel && el.rel.test(/^openlayer/i) ) return true;
+			    else if ( el.hasClass('openlayer') ) return true;
+			    else false;
 			});
 
 			links.each(function(item,index)
