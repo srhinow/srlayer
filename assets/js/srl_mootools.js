@@ -79,8 +79,8 @@
 			    switch(event.code)
 			    {
 				    case 27:	// Esc
-				    case 88:	// 'x'
-				    case 67:	// 'c'
+				    // case 88:	// 'x' #fix: sonst functionieren Formulareingaben nicht
+				    // case 67:	// 'c' #fix: sonst functionieren Formulareingaben nicht
 				    this.close();
 				    break
 			    }
