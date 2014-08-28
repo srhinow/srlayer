@@ -160,7 +160,9 @@ class ModuleSRLayer extends \Module
 			$jsOptions = implode(', ',$this->optionsArr);
 
 			//eigene CSS-Auszeichnungen aus CSS-Datei
-			$cssObjFile = \FilesModel::findByUuid($this->srl_css_file);
+
+			$cssObjFile = \FilesModel::findByPk($this->srl_css_file);
+			
 			if ($cssObjFile === null)
 			{
 				if (!Validator::isUuid($this->srl_css_file))
