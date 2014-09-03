@@ -159,19 +159,34 @@ class ModuleSRLayer extends \Module
 
 			$jsOptions = implode(', ',$this->optionsArr);
 
-			//eigene CSS-Auszeichnungen aus CSS-Datei
-
-			$cssObjFile = \FilesModel::findByPk($this->srl_css_file);
-			
-			if ($cssObjFile === null)
+			//eigene CSS-Auszeichnungen aus CSS-Datei			
+			if($this->srl_css_file)
 			{
-				if (!Validator::isUuid($this->srl_css_file))
-				{
-				    $this->log($GLOBALS['TL_LANG']['ERR']['version2format'],'ModuleSRLayer.php srl_css_file','TL_ERROR');
+				$cssObjFile = \FilesModel::findByPk($this->srl_css_file);
+
+				if(version_compare(VERSION.BUILD, '3.2.0','>='))
+				{					
+					if ($cssObjFile === null)
+					{
+						if (!Validator::isUuid($this->srl_css_file))
+						{
+						    $this->log($GLOBALS['TL_LANG']['ERR']['version2format'],'ModuleSRLayer.php srl_css_file','TL_ERROR');
+						}
+					}					
 				}
+				elseif(version_compare(VERSION.BUILD, '3.2.0','<'))
+				{
+					if (!is_numeric($this->srl_css_file))
+					{
+						$this->log($GLOBALS['TL_LANG']['ERR']['version2format'],'ModuleSRLayer.php srl_css_file','TL_ERROR');							
+					}					
+					
+				}
+
+				$cssPath = $cssObjFile->path;
 			}
 			
-			$GLOBALS['TL_CSS'][] = ($cssObjFile->path) ? $cssObjFile->path : $GLOBALS['SRL_CSS'].'?'.time();
+			$GLOBALS['TL_CSS'][] = ($cssPath) ? $cssPath : $GLOBALS['SRL_CSS'].'?'.time();
 
 			foreach($GLOBALS['SRL_JS']['mootools'] as $jsSource)
 			{
