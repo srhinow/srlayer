@@ -61,14 +61,18 @@
 	    {
  		    this.parentsize = this.parentEl.getSize();
 
-		    $(this.overLayID).setStyles(
+ 		    //when jquery is loading get undefined function error
+		    var overLayID = this.overLayID;
+		    var layerID = this.layerID;
+
+		    $(overLayID).setStyles(
 		    {
 		    	width : this.parentsize.x,
 				height : this.parentsize.y
 			});
 
-		    if(this.drawLayerCenterX) $(this.layerID).setStyles({ 'left': (this.parentsize.x - this.layerWidth) / 2 });
-		    if(this.drawLayerCenterY) $(this.layerID).setStyles({ 'top': (this.parentsize.y - this.layerHeight) / 2 });
+		    if(this.drawLayerCenterX) $(layerID).setStyles({ 'left': (this.parentsize.x - this.layerWidth) / 2 });
+		    if(this.drawLayerCenterY) $(layerID).setStyles({ 'top': (this.parentsize.y - this.layerHeight) / 2 });
 
 	    }.bind(this));
 
@@ -117,18 +121,27 @@
 	    }
 	    else
 	    {
-			$(this.layerID).setStyle('display', 'none');
+			//when jquery is loading get undefined function error		    
+		    var layerID = this.layerID;
+
+			$(layerID).setStyle('display', 'none');
 	    }
 	},
 
 	createHtml: function()
 	{
 	    this.parentsize = this.parentEl.getSize();
+ 		    
+	    //when jquery is loading get undefined function error with $(this.OPTIONNAME)
+	    var overLayID = this.overLayID;
+	    var layerID = this.layerID;
+	    var closeID = this.closeID;
+	    var closeClass = this.closeClass;
 
 	    // position overlay
-	    if($(this.overLayID))
+	    if($(overLayID))
 	    {
-	       $(this.overLayID).setStyles({
+	       $(overLayID).setStyles({
 			    width : this.parentsize.x,
 			    height : this.parentsize.y,
 			    top: this.topheight,
@@ -138,7 +151,7 @@
 	       	//add event on overlay
 			if(this.closePerLayerClick)
 			{
-			    $(this.overLayID).addEvent('click', function(event)
+			    $(overLayID).addEvent('click', function(event)
 			    {
 					event.stop(); //Prevents the browser from following the link.
 					this.close();
@@ -147,9 +160,9 @@
 	    }
 
 	    // position layer
-	    if( $(this.layerID) )
+	    if( $(layerID) )
 	    {
-	       $(this.layerID).setStyles(
+	       $(layerID).setStyles(
 	       {
 				width : this.layerWidth,
 		    	height : this.layerHeight,
@@ -159,14 +172,14 @@
 			var centerLeft = (this.parentsize.x - this.layerWidth) / 2;
 			var centerTop = (this.parentsize.y - this.layerHeight) / 2;
 
-			if(this.drawLayerCenterX) $(this.layerID).setStyle( 'left', centerLeft ); 
-			if(this.drawLayerCenterY) $(this.layerID).setStyle( 'top',centerTop ); 
+			if(this.drawLayerCenterX) $(layerID).setStyle( 'left', centerLeft ); 
+			if(this.drawLayerCenterY) $(layerID).setStyle( 'top',centerTop ); 
 	    }
 
  	    // add event on close-button
-	    if($(this.closeID))
+	    if($(closeID))
 	    {
-	        $(this.closeID).addEvent('click', function(event)
+	        $(closeID).addEvent('click', function(event)
 	        {
 				event.stop(); //Prevents the browser from following the link.
 				this.close();
@@ -174,9 +187,9 @@
 	    }
 
 		// add event on close-link
-        if($$(this.closeClass))
+        if($$(closeClass))
         {
-			$$('.'+this.closeClass).addEvent('click', function(event)
+			$$('.'+closeClass).addEvent('click', function(event)
 			{
 				event.stop(); //Prevents the browser from following the link.
 				this.close();
@@ -187,27 +200,35 @@
 
 	close: function()
 	{
-	   if($(this.layerID)) $(this.layerID).tween('opacity',0).setStyle('display', 'none');
-	   if($(this.overLayID)) $(this.overLayID).tween('opacity',0).setStyle('display', 'none');
+	    //when jquery is loading get undefined function error
+	    var overLayID = this.overLayID;
+	    var layerID = this.layerID;
+
+	   if($(layerID)) $(layerID).tween('opacity',0).setStyle('display', 'none');
+	   if($(overLayID)) $(overLayID).tween('opacity',0).setStyle('display', 'none');
 	},
 
 	open: function(el)
 	{
-	    if($(this.layerID))
+	    //when jquery is loading get undefined function error
+	    var overLayID = this.overLayID;
+	    var layerID = this.layerID;
+
+	    if($(layerID))
     	{
-			$(this.layerID).set('tween',{
+			$(layerID).set('tween',{
 					duration: this.duration,
 					transition: Fx.Transitions.Quad.easeIn,
 			});
-			$(this.layerID).setStyle('display', 'block').tween('opacity',1);
+			$(layerID).setStyle('display', 'block').tween('opacity',1);
 		}
-		if($(this.overLayID))
+		if($(overLayID))
 		{
-			$(this.overLayID).set('tween',{
+			$(overLayID).set('tween',{
 					duration: this.duration,
 					transition: Fx.Transitions.Quad.easeIn,
 			});
-			$(this.overLayID).setStyle('display', 'block').tween('opacity',this.overLayOpacity);
+			$(overLayID).setStyle('display', 'block').tween('opacity',this.overLayOpacity);
 		}
 	}
 } );
