@@ -177,10 +177,10 @@ class ModuleSRLayer extends \Module
 				}
 				elseif(version_compare(VERSION, '3.2','<'))
 				{
-					if (!is_numeric($this->srl_css_file))
-					{
-						$this->log($GLOBALS['TL_LANG']['ERR']['version2format'],'ModuleSRLayer.php srl_css_file','TL_ERROR');							
-					}					
+					// if (!is_numeric($this->srl_css_file))
+					// {
+					// 	$this->log($GLOBALS['TL_LANG']['ERR']['version2format'],'ModuleSRLayer.php srl_css_file','TL_ERROR');							
+					// }
 					$cssPath = $cssObjFile->path;
 				}
 				
