@@ -7,8 +7,8 @@ deutsch
 --------------------------------------
 dieses Contao-Modul stellt die Möglichkeit zur Verfügung ein Layer in verschiedenen Arten anzuzeigen
 
-- unterstützt jetzt sowohl jQuery alsauch Mootools
-- diverse Vorgaen wie Breite und Hhe des Layers als auch Position und Transparent der Elemente werden zukünftig nur noch per CSS-Datei gesetzt.
+- unterstützt jetzt sowohl jQuery als auch Mootools
+- diverse Vorgaen wie Breite und Höhe des Layers als auch Position und Transparent der Elemente werden zukünftig nur noch per CSS-Datei gesetzt.
 - durch Klick auf eine Schaltfläche oder Link
 - Aufruf beim betreten der Seite
 - Übergabe von bestimmten GET-Parametern
