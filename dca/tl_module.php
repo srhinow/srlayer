@@ -13,12 +13,12 @@
 
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'] = array_merge( $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'], array('srl_set_cookie', 'srl_set_jsoptions'));
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['srlayer']  = 'name,type;{layer_legend},srl_content,srl_option_layerwidth,srl_option_layerheight;{htmlcss_legend},srl_template,srl_css_file;{show_legend},srl_no_param,srl_set_mkLinkEvents,srl_substr,srl_delay,srl_start,srl_stop;{session_legend},srl_set_session;{cookie_legend},srl_set_cookie;{expert_legend:hide},srl_hideOverlay;{js_legend:hide},srl_set_jsoptions';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['srlayer']  = 'name,type;{layer_legend},srl_content;{htmlcss_legend},srl_template,srl_css_file;{show_legend},srl_no_param,srl_set_mkLinkEvents,srl_substr,srl_delay,srl_start,srl_stop;{session_legend},srl_set_session;{cookie_legend},srl_set_cookie;{expert_legend:hide},srl_hideOverlay;{js_legend:hide},srl_set_jsoptions';
 
 $GLOBALS['TL_DCA']['tl_module']['subpalettes'] = array_merge($GLOBALS['TL_DCA']['tl_module']['subpalettes'], 
 	array(
 		'srl_set_cookie' => 'srl_cookie_name,srl_cookie_dauer',
-		'srl_set_jsoptions' => 'srl_set_overLayID,srl_set_layerID,srl_set_closeID,srl_set_closeClass,srl_set_overLayOpacity,srl_set_duration,srl_set_closePerEsc,srl_set_closePerLayerClick,srl_set_drawLayerCenterX,srl_set_drawLayerCenterY,srl_option_other'
+		'srl_set_jsoptions' => 'srl_set_overLayID,srl_set_layerID,srl_set_closeID,srl_set_closeClass,srl_set_duration,srl_set_closePerEsc,srl_set_closePerLayerClick,srl_option_other'
 	)
 );
 
@@ -122,7 +122,7 @@ array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array
 	    'default' 		=> '600',
 	    'exclude' 		=> true,
 	    'inputType' 	=> 'text',
-	    'eval' 			=> array('mandatory'=>true,'maxlength'=>55,'tl_class'=>'w50','rgxp'=>'digit'),
+	    'eval' 			=> array('mandatory'=>false,'maxlength'=>55,'tl_class'=>'w50','rgxp'=>'digit'),
 		'sql'			=> "varchar(55) NOT NULL default ''"
 	),
 	'srl_option_layerheight' => array
@@ -131,7 +131,7 @@ array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array
 	    'default' 		=> '450',
 	    'exclude' 		=> true,
 	    'inputType' 	=> 'text',
-	    'eval' 			=> array('mandatory'=>true,'maxlength'=>55,'tl_class'=>'w50','rgxp'=>'digit'),
+	    'eval' 			=> array('mandatory'=>false,'maxlength'=>55,'tl_class'=>'w50','rgxp'=>'digit'),
 		'sql'			=> "varchar(55) NOT NULL default ''"
 	),
 	'srl_hideOverlay' => array
@@ -204,7 +204,7 @@ array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array
 	    'default' 		=> '1000',
 	    'exclude' 		=> true,
 	    'inputType' 	=> 'text',
-	    'eval' 			=> array('tl_class'=>'w50'),
+	    'eval' 			=> array(),
 		'sql'			=> "varchar(55) NOT NULL default '1000'"
 	),
 	'srl_set_closePerEsc' => array

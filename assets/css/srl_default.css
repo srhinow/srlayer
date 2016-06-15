@@ -5,24 +5,24 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
+	opacity: 0.7;
 	background-color: #000;
 	cursor: pointer;
 	display:none;
-/* 		border:3px solid #f00; */
 }
 #srl_layer{
-    position:fixed;
-    z-index: 9999;
-    height:460px;
-    width:790px;
-    display:none;
-    overflow: auto;
-    background-color: #fff;
-    -webkit-border-radius: 10px;
--moz-border-radius: 10px;
-border-radius: 10px;
+	border:2px solid black;
+	background-color: #fff;
+	width: 700px;
+	height: 500px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -350px;
+	margin-top: -250px;
+	z-index: 9999;
+	display:none;
 }
-
 #srl_closeBtn {
 	position:absolute;
 	right:10px;

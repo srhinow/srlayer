@@ -52,11 +52,12 @@ class ModuleSRLayer extends \Module
 			$objTemplate->title = $this->headline;
 			$objTemplate->id = $this->id;
 			$objTemplate->link = $this->name;
-			$objTemplate->href = 'typolight/main.php?do=modules&amp;act=edit&amp;id=' . $this->id;
+			$objTemplate->href = 'contao/main.php?do=modules&amp;act=edit&amp;id=' . $this->id;
 
 			return $objTemplate->parse();
 		}
-		if($this->srl_template != '') $strTemplate = $this->srl_template;
+
+		if($this->srl_template != '') $this->strTemplate = $this->srl_template;
 
 		return parent::generate();
 	}
@@ -67,6 +68,7 @@ class ModuleSRLayer extends \Module
 	 */
 	protected function compile()
 	{
+		global $objPage;
 
 		//sucht in den Get-Keys nach einer bestimmten Teil-Zeichenkette
 		$pos = false;
@@ -145,10 +147,22 @@ class ModuleSRLayer extends \Module
 			//expert options
 			if($this->srl_set_jsoptions == 1)
 			{
-				if(strlen($this->srl_set_overLayID)) $this->optionsArr[] = "overLayID:'".$this->srl_set_overLayID."'";
-				if(strlen($this->srl_set_layerID)) $this->optionsArr[] = "layerID:'".$this->srl_set_layerID."'";
-				if(strlen($this->srl_set_closeID)) $this->optionsArr[] = "closeID:'".$this->srl_set_closeID."'";
-				if(strlen($this->srl_set_closeClass)) $this->optionsArr[] = "closeClass:'".$this->srl_set_closeClass."'";
+				if($objPage->hasJQuery)
+				{
+					if(strlen($this->srl_set_overLayID)) $this->optionsArr[] = "overLayID:'#".$this->srl_set_overLayID."'";
+					if(strlen($this->srl_set_layerID)) $this->optionsArr[] = "layerID:'#".$this->srl_set_layerID."'";
+					if(strlen($this->srl_set_closeID)) $this->optionsArr[] = "closeID:'#".$this->srl_set_closeID."'";
+					if(strlen($this->srl_set_closeClass)) $this->optionsArr[] = "closeClass:'.".$this->srl_set_closeClass."'";
+
+				} else {
+
+					if(strlen($this->srl_set_overLayID)) $this->optionsArr[] = "overLayID:'".$this->srl_set_overLayID."'";
+					if(strlen($this->srl_set_layerID)) $this->optionsArr[] = "layerID:'".$this->srl_set_layerID."'";
+					if(strlen($this->srl_set_closeID)) $this->optionsArr[] = "closeID:'".$this->srl_set_closeID."'";
+					if(strlen($this->srl_set_closeClass)) $this->optionsArr[] = "closeClass:'".$this->srl_set_closeClass."'";
+
+				}
+
 				if(strlen($this->srl_set_overLayOpacity)) $this->optionsArr[] = 'overLayOpacity:'.$this->srl_set_overLayOpacity;
 				if(strlen($this->srl_set_duration)) $this->optionsArr[] = 'duration:'.$this->srl_set_duration;
 				if(!$this->srl_set_closePerEsc) $this->optionsArr[] = 'closePerEsc:false';
@@ -159,13 +173,13 @@ class ModuleSRLayer extends \Module
 
 			$jsOptions = implode(', ',$this->optionsArr);
 
-			//eigene CSS-Auszeichnungen aus CSS-Datei			
+			//eigene CSS-Auszeichnungen aus CSS-Datei
 			if($this->srl_css_file)
 			{
 				$cssObjFile = \FilesModel::findByPk($this->srl_css_file);
 
 				if(version_compare(VERSION, '3.2','>='))
-				{					
+				{
 					if ($cssObjFile === null)
 					{
 						if (!Validator::isUuid($this->srl_css_file))
@@ -173,28 +187,40 @@ class ModuleSRLayer extends \Module
 						    $this->log($GLOBALS['TL_LANG']['ERR']['version2format'],'ModuleSRLayer.php srl_css_file','TL_ERROR');
 						}
 					}
-					$cssPath = $cssObjFile->path;					
+					$cssPath = $cssObjFile->path;
 				}
 				elseif(version_compare(VERSION, '3.2','<'))
 				{
-					// if (!is_numeric($this->srl_css_file))
-					// {
-					// 	$this->log($GLOBALS['TL_LANG']['ERR']['version2format'],'ModuleSRLayer.php srl_css_file','TL_ERROR');							
-					// }
 					$cssPath = $cssObjFile->path;
 				}
-				
-			}
-			
-			$GLOBALS['TL_CSS'][] = ($cssPath) ? $cssPath : $GLOBALS['SRL_CSS'].'?'.time();
 
-			foreach($GLOBALS['SRL_JS']['mootools'] as $jsSource)
+			}
+
+			$GLOBALS['TL_CSS'][] = ($cssPath) ? $cssPath : $GLOBALS['SRL_CSS'];
+
+			//wenn jQuery aktiviert ist dann jQuery (vorrangig)
+			if($objPage->hasJQuery && is_array($GLOBALS['SRL_JS']['jquery']))
 			{
-				$GLOBALS['TL_JAVASCRIPT'][] = $jsSource.'?'.time();
-			}
+				foreach($GLOBALS['SRL_JS']['jquery'] as $jsSource)
+				{
+					$GLOBALS['TL_JAVASCRIPT'][] = $jsSource;
+				}
 
-			if((int) $this->srl_delay > 0) $GLOBALS['TL_MOOTOOLS'][] = '<script type="text/javascript"> window.addEvent(\'domready\', function() { var ml = new  myLayer( { '.$jsOptions.', '.$this->srl_option_other.' } ); }.delay('.$this->srl_delay.'));</script>';
-			else $GLOBALS['TL_MOOTOOLS'][] = '<script type="text/javascript"> window.addEvent(\'domready\', function() { var ml = new  myLayer( { '.$jsOptions.', '.$this->srl_option_other.' } ); });</script>';
+				if((int) $this->srl_delay > 0) $GLOBALS['TL_JQUERY'][] = '<script type="text/javascript"> jQuery(document).ready(function() { setTimeout(function(){ var ml = new $.srLayer( { '.$jsOptions.', '.$this->srl_option_other.' } ); }, '.$this->srl_delay.'); });</script>';
+				else $GLOBALS['TL_JQUERY'][] = '<script type="text/javascript">jQuery(document).ready(function() { $.srLayer( { '.$jsOptions.', '.$this->srl_option_other.' } ); });</script>';
+
+			}
+			// ansonsten Mootools
+			else if($objPage->hasMooTools && is_array($GLOBALS['SRL_JS']['mootools']))
+			{
+
+				foreach($GLOBALS['SRL_JS']['mootools'] as $jsSource)
+				{
+					$GLOBALS['TL_JAVASCRIPT'][] = $jsSource;
+				}
+				if((int) $this->srl_delay > 0) $GLOBALS['TL_MOOTOOLS'][] = '<script type="text/javascript"> window.addEvent(\'domready\', function() { var ml = new srLayer( { '.$jsOptions.', '.$this->srl_option_other.' } ); }.delay('.$this->srl_delay.'));</script>';
+				else $GLOBALS['TL_MOOTOOLS'][] = '<script type="text/javascript"> window.addEvent(\'domready\', function() { var ml = new srLayer( { '.$jsOptions.', '.$this->srl_option_other.' } ); });</script>';
+			}
 
 			$this->Template->content = $this->srl_content;
 			$this->Template->showLayerHtml = $this->show;
