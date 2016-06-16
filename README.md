@@ -17,4 +17,4 @@ weitere Eigenschaften vom srlayer sind:
 - die Anzeige kann zeitlich verzögert werden bevor der Layer erscheint
 - Der Inhalt des Layers kann absolute flexible gestaltet werden da es den im Modul eingetragenen Text anzeigt und auch mit inserttags auf Artikel, Inhaltselemente und Module gesteuert werden kann
 
-Vorraussetzung: dieses Modul basiert momentan ausschließlich noch auf das Mootools-Framework
+Vorraussetzung: dieses Modul basiert auf das Mootools-, oder das jQuery-Framework
