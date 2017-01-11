@@ -206,8 +206,27 @@ class ModuleSRLayer extends \Module
 					$GLOBALS['TL_JAVASCRIPT'][] = $jsSource;
 				}
 
-				if((int) $this->srl_delay > 0) $GLOBALS['TL_JQUERY'][] = '<script type="text/javascript"> jQuery(document).ready(function() { setTimeout(function(){ var ml = new jQuery.srLayer( { '.$jsOptions.', '.$this->srl_option_other.' } ); }, '.$this->srl_delay.'); });</script>';
-				else $GLOBALS['TL_JQUERY'][] = '<script type="text/javascript">jQuery(document).ready(function() { jQuery.srLayer( { '.$jsOptions.', '.$this->srl_option_other.' } ); });</script>';
+				if((int) $this->srl_delay > 0) $GLOBALS['TL_JQUERY'][] = '
+					<script type="text/javascript"> 
+				 	(function($) {
+						$(document).ready(function() 
+						{ 
+							setTimeout(function()
+							{
+								$.srLayer( { '.$jsOptions.', '.$this->srl_option_other.' } ); 
+							}, '.$this->srl_delay.'); 
+						});
+	 				})(jQuery);
+					</script>';
+				else $GLOBALS['TL_JQUERY'][] = '
+					<script type="text/javascript">
+						(function($) {
+							$(document).ready(function() 
+							{
+								$.srLayer( { '.$jsOptions.', '.$this->srl_option_other.' } ); 
+							});
+						 })(jQuery);
+						</script>';
 
 			}
 			// ansonsten Mootools
