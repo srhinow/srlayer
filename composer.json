@@ -1,0 +1,36 @@
+{
+  "name": "srhinow/srlayer",
+  "description": "a layer with any settings for Contao CMS",
+  "keywords": ["contao", "layer", "Störer", "popup"],
+  "type": "contao-module",
+  "homepage": "https://github.com/srhinow/srlayer",
+  "license": "GPL-3.0+",
+  "authors":[
+    {
+      "name":"Sven Rhinow",
+      "homepage":"https://www.sr-tag.de",
+      "role":"Developer"
+    }
+  ],
+  "support":{
+    "email": "kservice@sr-tag.de",
+    "issues":"https://github.com/srhinow/srlayer/issues",
+    "source":"https://github.com/srhinow/srlayer"
+  },
+  "require": {
+    "php": ">=5.3",
+    "contao/core-bundle": "^3.2, < 4.0-dev",
+    "contao-community-alliance/composer-plugin":"~2.4 || ~3.0"
+  },
+  "replace": {
+    "contao-legacy/srlayer": "self.version"
+    "contao-legacy/campainLayer": "self.version"
+  },
+  "extra": {
+    "contao": {
+      "sources": {
+        "": "system/modules/srlayer"
+      }
+    }
+  }
+}
