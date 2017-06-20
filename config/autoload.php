@@ -16,7 +16,7 @@
  */
 ClassLoader::addClasses(array
 (
-	'ModuleSRLayer' => 'system/modules/srlayer/ModuleSRLayer.php',
+	'ModuleSRLayer' => 'system/modules/srlayer/classes/ModuleSRLayer.php',
 ));
 
 
