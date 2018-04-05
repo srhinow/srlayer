@@ -14,9 +14,9 @@
 /**
  * Register the classes
  */
-ClassLoader::addClasses(array
-(
+ClassLoader::addClasses(array(
 	'ModuleSRLayer' => 'system/modules/srlayer/classes/ModuleSRLayer.php',
+	'ModuleSrlHooks' => 'system/modules/srlayer/classes/ModuleSrlHooks.php',
 ));
 
 

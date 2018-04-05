@@ -25,6 +25,10 @@ $GLOBALS['TL_LANG']['tl_module']['srl_set_session']         = array('Sitzungscoo
 $GLOBALS['TL_LANG']['tl_module']['srl_set_cookie']         = array('ein Domaincookie setzen', 'Um die Anzeige per Cookie-Dauer zu beschränken.');
 $GLOBALS['TL_LANG']['tl_module']['srl_cookie_name']         = array('Cookie-Name', 'wenn es leer bleibt wird ein Name generiert.');
 $GLOBALS['TL_LANG']['tl_module']['srl_cookie_dauer']         = array('Cookie-Dauer', 'in Sekunden. Standart 3600 = 1Stunde.');
+
+$GLOBALS['TL_LANG']['tl_module']['srl_set_cookieaction']         = array('den Domaincookie auswerten', 'Nur wenn der Haken gesetzt wurde, wird die Anzeige darauf reagieren.');
+$GLOBALS['TL_LANG']['tl_module']['srl_cookieaction_name']         = array('Cookie-Name', 'wenn es leer bleibt wird ein Name generiert.');
+
 $GLOBALS['TL_LANG']['tl_module']['srl_start']       = array('Anzeigen ab', 'Den Layer erst ab diesem Tag auf der Webseite anzeigen.');
 $GLOBALS['TL_LANG']['tl_module']['srl_stop']        = array('Anzeigen bis', 'Den Layer nur bis zu diesem Tag auf der Webseite anzeigen.');
 $GLOBALS['TL_LANG']['tl_module']['srl_hideOverlay']        = array('Overlay nicht anzeigen','den Bereich um den Layer der sich über die ganze Seite legt, nicht anzeigen.');
