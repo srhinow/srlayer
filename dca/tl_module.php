@@ -221,7 +221,7 @@ array_insert($GLOBALS['TL_DCA']['tl_module']['fields'] , 2, array
 	    'default' 		=> '1000',
 	    'exclude' 		=> true,
 	    'inputType' 	=> 'text',
-	    'eval' 			=> array(),
+	    'eval' 			=> array('tl_class'=>'w50'),
 		'sql'			=> "varchar(55) NOT NULL default '1000'"
 	),
 	'srl_set_closePerEsc' => array
