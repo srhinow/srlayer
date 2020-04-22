@@ -102,6 +102,7 @@
 				    $(plugin.settings.overLayID).on('click', function(e)
 				    {
 						e.preventDefault(); //Prevents the browser from following the link.
+						$(plugin.settings.layerID).removeClass('active');
 						close();
 				    });
 				}
@@ -113,6 +114,7 @@
 		        $(plugin.settings.closeID).on('click', function(e)
 		        {
 					e.preventDefault(); //Prevents the browser from following the link.
+					$(plugin.settings.layerID).removeClass('active');
 					close();
 				});
 		    }
@@ -123,6 +125,7 @@
 				$(plugin.settings.closeClass).on('click', function(e)
 				{
 					e.preventDefault(); //Prevents the browser from following the link.
+					$(plugin.settings.layerID).removeClass('active');
 					close();
 				});
 		    }
@@ -139,6 +142,7 @@
 		    if($(plugin.settings.layerID))
 			{
 				$(plugin.settings.layerID).fadeIn(plugin.settings.duration);
+				$(plugin.settings.layerID).addClass('active');
 			}
 			if($(plugin.settings.overLayID))
 			{
